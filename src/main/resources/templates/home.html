@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Saving Accounts And Amounts In Excel</title>
+    <link rel="stylesheet" href="/home.css">
+    <script src="/home.js"></script>
+</head>
+<body>
+<div id="mainDiv">
+    <div>
+        <div>
+            <div class="formWithButtons">
+                <input id="filesId" type="file" name="files" style="display: none;" onchange="add(document.getElementById('filesId'))" multiple>
+                <input class="buttonStyle textStyle" type="button" value="Choose and add files" onclick="document.getElementById('filesId').click();" />
+            </div>
+            <form class="formWithButtons" action="#" th:action="@{/generateExcel}" method="get">
+                <input class="buttonStyle textStyle" type="submit" value="Download Excel">
+            </form>
+            <div class="formWithButtons">
+                <button class="buttonStyle textStyle" type="submit" title="delete all files, Excel and PDF, for this session" onclick="deleteAllRows()">Delete all</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <table id="pdfFileTable" class="textStyle">
+            <tr class="tableHeaderStyle">
+                <th>PDF file name</th>
+                <th>Action button</th>
+            </tr>
+            <tr th:each="file : ${files}">
+                <td>[[${file.getName()}]]</td>
+                <td>
+                    <button class="buttonStyle textStyle" th:onclick="deleteFileName([[${file.getName()}]])">delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
